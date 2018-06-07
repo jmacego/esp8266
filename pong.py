@@ -113,11 +113,13 @@ class Game:
 
     __init__(self, *args, **kwargs):
         #do the stuff
-        pass
+        self.paddle1_score = 0
+        self.paddle2_score = 0
 
-    score(self, *args, **kwargs):
+    score(self, score1, score2):
         '''Set the score'''
-        pass
+        self.paddle1_score += score1
+        self.paddle2_score += score2
 
     play(self, *args, **kwargs):
         '''Play the game itself'''
