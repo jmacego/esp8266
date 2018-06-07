@@ -19,6 +19,12 @@ def draw_sine(display, period=2, amplitude=16, y_offset=0, x_offset=0):
 
 
 def draw_micropython(display):
+    '''Draw the Micropython Logo and advertise at the start of the game
+
+    Micropython does not support: Multiline bytearrys, any sort of hex
+    decode or any way at all that I could come up with to make the
+    first line fit within 80 columns'''
+
     buffer = bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xe0\x10\x8a\xa0\x10\x24\xc8\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x78\xfe\xff\x3f\xfe\xfd|\xfb\xf8\xfc\xff\x7c\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x80\xc0\x64\xe0\xe0\xe0\xc0\xc1\x63\x9f\xff\x0f\xce\xff\xff\xcf\xe3\xf0pp\xa0\xe0\xe0\xc0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xf0\xff\xfb\xe7\xdf\x8e\x9e\xfd\x95"$%\x00\xfe\xff\xff\xed\xdd\xce\xce\xff\xe7\xe7\xf7\xfb\xf9\xfep\xe0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00@6\x9bg7\xcfo\x9d\xdb?\xbbws\xf7\xfa\xfa\xf9\xf4\xfd\xf7\xf3\xf1\xfdsy\xbd;\xd9\x9do\xcc6g\x9b6@\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x02\x01\x04\x03\t\x06\x13\x0c&\x19\r\x1b\x1b\r\x19&\x0c\x13\x06\t\x03\x04\x01\x02\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
     fb = framebuf.FrameBuffer(buffer, 48, 48, framebuf.MVLSB)
     display.fill(0)
@@ -63,11 +69,9 @@ class Ball:
     def update(self):
         self.x += self.vector['x']
         if self.x >= display.width:
-            self.display.text("Game Over", 30, 12)
-            return True
+            score(0, 1)
         elif self.x <= 0:
-            self.display.text("Game Over", 30, 12)
-            return True
+            score(1, 0)
 
         self.y += self.vector['y']
         if self.y >= self.display.height:
@@ -104,6 +108,21 @@ class Ball:
                 paddle.y = self.display.height - paddle.h
                 print("Paddle.y hit bottom: {}".format(paddle.y))
 
+class Game:
+    """Game stuff, score, etc"""
+
+    __init__(self, *args, **kwargs):
+        #do the stuff
+        pass
+
+    score(self, *args, **kwargs):
+        '''Set the score'''
+        pass
+
+    play(self, *args, **kwargs):
+        '''Play the game itself'''
+        pass
+
 
 i2c = machine.I2C(sda=machine.Pin(4), scl=machine.Pin(5))
 
@@ -127,5 +146,6 @@ for i in range(5000):
     display.show()
     time.sleep_ms(10)
     if game_over:
+        display.text("Game Over", 30, 12)
         print("Game Over")
         break
