@@ -147,6 +147,7 @@ for i in range(5000):
     ball.move_paddle(paddle2)
     display.show()
     time.sleep_ms(10)
+    
     if game_over:
         display.text("Game Over", 30, 12)
         print("Game Over")
