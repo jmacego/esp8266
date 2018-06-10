@@ -111,15 +111,15 @@ class Ball:
 class Game:
     """Game stuff, score, etc"""
 
-    __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         #do the stuff
         pass
 
-    score(self, *args, **kwargs):
+    def score(self, *args, **kwargs):
         '''Set the score'''
         pass
 
-    play(self, *args, **kwargs):
+    def play(self, *args, **kwargs):
         '''Play the game itself'''
         pass
 
