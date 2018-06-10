@@ -10,6 +10,8 @@ Expects a config.json file in the format:
 {"ssid": "SSIDGOESHERE", "password": "PASSWORDGOESHERE"}
 
 This file can be simply generated on the device by:
+
+import json
 config = {"ssid": "SSIDGOESHERE", "password": "PASSWORDGOESHERE"}
 with open('config.json', 'w') as outfile:
     json.dump(config, outfile)
