@@ -12,7 +12,7 @@ Expects a config.json file in the format:
 This file can be simply generated on the device by:
 config = {"ssid": "SSIDGOESHERE", "password": "PASSWORDGOESHERE"}
 with open('config.json', 'w') as outfile:
-    json.dump(data, outfile)
+    json.dump(config, outfile)
 
 
 """
